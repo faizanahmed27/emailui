@@ -16,6 +16,8 @@ export class EmailComponent implements OnInit{
     message:""
   }
 
+  flag:boolean=false;
+
   constructor(private email:EmailService, private snack:MatSnackBar) { }
 
   ngOnInit(): void {
@@ -33,13 +35,17 @@ export class EmailComponent implements OnInit{
       return;
     }
 
+    this.flag=true;
     this.email.sendEmail(this.data).subscribe(
       response=>{
         console.log(response);
-
+        this.flag=false;
+        this.snack.open("Sent successfully", "OK")
       },
       error=>{
         console.log(error);
+        this.flag=false;
+        this.snack.open("Error getting", "OK")
       }
     )
   }

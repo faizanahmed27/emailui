@@ -36,16 +36,20 @@ export class EmailComponent implements OnInit{
     }
 
     this.flag=true;
-    this.email.sendEmail(this.data).subscribe(
-      response=>{
+    this.email.sendEmail(this.data).subscribe((response:any)=>
+      {
         console.log(response);
         this.flag=false;
-        this.snack.open("Sent successfully", "OK")
+        this.snack.open(response.token, "OK");
+        // Fields reset after success...
+        this.data.to="";
+        this.data.subject="";
+        this.data.message="";
       },
       error=>{
         console.log(error);
         this.flag=false;
-        this.snack.open("Error getting", "OK")
+        this.snack.open(error.token, "OK")
       }
     )
   }

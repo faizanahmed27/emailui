@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmailService } from '../../service/email.service';
 import { response } from 'express';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-email',
@@ -18,7 +19,7 @@ export class EmailComponent implements OnInit{
 
   flag:boolean=false;
 
-  constructor(private email:EmailService, private snack:MatSnackBar) { }
+  constructor(private email:EmailService, private snack:MatSnackBar, private router:Router) { }
 
   ngOnInit(): void {
     
@@ -41,6 +42,8 @@ export class EmailComponent implements OnInit{
         console.log(response);
         this.flag=false;
         this.snack.open(response.token, "OK");
+        // Navigate to Home Page...
+        this.router.navigate(['']);
         // Fields reset after success...
         this.data.to="";
         this.data.subject="";
